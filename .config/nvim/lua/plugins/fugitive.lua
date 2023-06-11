@@ -3,7 +3,7 @@ return {
   -- lazy = false,
   event = "VeryLazy",
   init = function()
-    vim.keymap.set("n", "<LEADER>gg", "G")
-    vim.keymap.set("n", "<LEADER>gc", "G commit")
+    vim.keymap.set("n", "<LEADER>gg", vim.cmd.G)
+    vim.keymap.set("n", "<LEADER>gc", function() vim.cmd.G("commit") end)
   end
 }
