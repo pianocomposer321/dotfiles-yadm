@@ -43,7 +43,10 @@ return {
             goto_node = '<cr>',
             show_help = '?',
           },
-        }
+        },
+        autotag = {
+          enable = true
+        },
       }
     end,
     run = ":TSUpdate",
@@ -59,5 +62,9 @@ return {
     -- event = "BufReadPre",
     lazy = false,
     dependencies = "nvim-treesitter/nvim-treesitter",
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    event = "VeryLazy",
   },
 }
