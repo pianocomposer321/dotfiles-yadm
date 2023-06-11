@@ -71,6 +71,24 @@ return {
               }
             },
           }))
+        end,
+        ["rust_analyzer"] = function()
+          lspconfig.rust_analyzer.setup(vim.tbl_extend("force", lsp_opts, {
+            settings = {
+              ["rust-analyzer"] = {
+                diagnostics = {
+                  disabled = {
+                    "inactive-code"
+                  }
+                }
+                -- cargo = {
+                --   extraEnv = {
+                --     RUSTFLAGS = "--cfg rust_analyzer"
+                --   }
+                -- }
+              }
+            }
+          }))
         end
       }
     end,
