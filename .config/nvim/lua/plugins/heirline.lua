@@ -30,16 +30,16 @@ return {
       diag_hint = utils.get_highlight("DiagnosticHint").fg,
       diag_info = utils.get_highlight("DiagnosticInfo").fg,
       bg = utils.get_highlight("LineNr").fg,
-      -- git_del = utils.get_highlight("diffDeleted").fg,
-      -- git_add = utils.get_highlight("diffAdded").fg,
-      -- git_change = utils.get_highlight("diffChanged").fg,
+      git_del = utils.get_highlight("diffRemoved").fg,
+      git_add = utils.get_highlight("diffAdded").fg,
+      git_change = utils.get_highlight("diffChanged").fg,
     }
     heirline.load_colors(colors)
 
     local statusline = {
       widgets.ViMode, widgets.Space,
       widgets.FileName, widgets.Space, widgets.FileModified, widgets.Space,
-      widgets.LSPActive,
+      widgets.LSPActive, widgets.Space, widgets.Space, widgets.Git,
 
       widgets.Align,
 
