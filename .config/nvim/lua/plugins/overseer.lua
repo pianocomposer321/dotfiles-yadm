@@ -10,6 +10,7 @@ end
 return {
   {
     "stevearc/overseer.nvim",
+    cmd = "Make",
     init = function()
       vim.keymap.set("n", "<LEADER>ro", function() require("overseer").toggle() end)
       vim.keymap.set("n", "<LEADER>rr", function() require("overseer").run_template { prompt = "avoid" } end)
@@ -25,6 +26,29 @@ return {
       }, function(task_defn, util)
         util.add_component(task_defn, { "unique" })
       end)
-    end
+
+      vim.api.nvim_create_user_command("Make", function(params)
+        local args = vim.fn.expandcmd(params.args)
+        -- Insert args at the '$*' in the grepprg
+        local cmd, num_subs = vim.o.makeprg:gsub("%$%*", args)
+        if num_subs == 0 then
+          cmd = cmd .. " " .. args
+        end
+
+        local task = overseer.new_task({
+          cmd = cmd,
+          components = {
+            { "on_output_quickfix", errorformat = vim.o.efm, open = not params.bang, open_height = 8 },
+            "default",
+          },
+        })
+        task:start()
+        overseer.run_action(task, "open vsplit")
+      end, {
+        desc = "",
+        nargs = "*",
+        bang = true,
+      })
+  end
   },
 }
