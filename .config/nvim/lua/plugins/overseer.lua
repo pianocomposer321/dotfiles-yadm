@@ -19,7 +19,14 @@ return {
     end,
     config = function()
       local overseer = require("overseer")
-      overseer.setup()
+
+      local opts = {}
+
+      if pcall(require, "toggleterm") then
+        opts.strategy = { "toggleterm", open_on_start = true }
+      end
+
+      overseer.setup(opts)
       -- Add `unique` component to all vscode tasks
       overseer.add_template_hook({
         module = "vscode",
@@ -43,7 +50,6 @@ return {
           },
         })
         task:start()
-        overseer.run_action(task, "open vsplit")
       end, {
         desc = "",
         nargs = "*",
