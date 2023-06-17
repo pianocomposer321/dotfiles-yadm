@@ -24,7 +24,7 @@ return {
       local opts = {}
 
       if pcall(require, "toggleterm") then
-        opts.strategy = { "toggleterm", open_on_start = true }
+        opts.strategy = { "toggleterm", open_on_start = true, quit_on_exit = "always", direction = "vertical" }
       end
 
       overseer.setup(opts)
