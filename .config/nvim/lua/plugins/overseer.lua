@@ -20,10 +20,15 @@ return {
         overseer.run_action(get_last(), "restart")
       end
 
+      local function open_vsplit_last()
+        overseer.run_action(get_last(), "open vsplit")
+      end
+
       vim.keymap.set("n", "<LEADER>ro", function() overseer.toggle() end)
       vim.keymap.set("n", "<LEADER>rr", function() overseer.run_template { prompt = "avoid" } end)
       vim.keymap.set("n", "<LEADER><CR>", restart_last)
       vim.keymap.set("n", "<LEADER>ra", function() overseer.commands.task_action() end)
+      vim.keymap.set("n", "<LEADER>rv", open_vsplit_last)
     end,
     config = function()
       local overseer = require("overseer")
