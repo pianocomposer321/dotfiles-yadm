@@ -70,6 +70,9 @@ return {
               Lua = {
                 diagnostics = {
                   globals = { "vim" }
+                },
+                workspace = {
+                  checkThirdParty = false
                 }
               }
             },
