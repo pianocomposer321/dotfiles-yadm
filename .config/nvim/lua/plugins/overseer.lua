@@ -46,7 +46,7 @@ return {
         local task = overseer.new_task({
           cmd = cmd,
           components = {
-            { "on_output_quickfix", errorformat = vim.o.efm, open = not params.bang, open_height = 8 },
+            { "on_output_quickfix", errorformat = vim.o.efm, open_on_exit = params.bang and "never" or "failure", open_height = 8 },
             "default",
           },
         })
