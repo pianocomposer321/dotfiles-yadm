@@ -10,6 +10,7 @@ end
 return {
   {
     "stevearc/overseer.nvim",
+    dev = true,
     cmd = "Make",
     init = function()
       vim.keymap.set("n", "<LEADER>ro", function() require("overseer").toggle() end)
