@@ -29,15 +29,20 @@ return {
       vim.keymap.set("n", "<LEADER><CR>", restart_last)
       vim.keymap.set("n", "<LEADER>ra", function() overseer.commands.task_action() end)
       vim.keymap.set("n", "<LEADER>rv", open_vsplit_last)
+
+      vim.keymap.set("n", "m<SPACE>", ":Make<SPACE>")
+      vim.keymap.set("n", "m<CR>", ":Make<CR>")
     end,
     config = function()
       local overseer = require("overseer")
 
       local opts = {}
 
-      if pcall(require, "toggleterm") then
-        opts.strategy = { "toggleterm", open_on_start = true, quit_on_exit = "always", direction = "vertical" }
-      end
+      -- opts.strategy = { "user.terminal" }
+
+      -- if pcall(require, "toggleterm") then
+      --   opts.strategy = { "toggleterm", open_on_start = true, quit_on_exit = "always", direction = "vertical" }
+      -- end
 
       overseer.setup(opts)
       -- Add `unique` component to all vscode tasks
