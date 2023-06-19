@@ -21,7 +21,12 @@ return {
       end
 
       local function open_vsplit_last()
-        overseer.run_action(get_last(), "open vsplit")
+        local task = get_last()
+        if task then
+          local bufnr = task:get_bufnr()
+          require("user.overseer_ui").create_window(bufnr, "botright vertical", vim.o.columns * 0.4)
+          vim.api.nvim_win_set_buf(0, bufnr)
+        end
       end
 
       vim.keymap.set("n", "<LEADER>ro", function() overseer.toggle() end)
