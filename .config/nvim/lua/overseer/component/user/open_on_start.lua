@@ -1,44 +1,4 @@
-local windows = {}
-
-local augroup = vim.api.nvim_create_augroup("overseer_user_open_on_start", {})
-
-local function create_window(bufnr, modifier, size)
-  if type(size) == "function" then
-    size = size()
-  end
-
-  local cmd = "split"
-  if modifier ~= "" then
-    cmd = modifier .. " " .. size .. cmd
-  end
-  vim.cmd(cmd)
-
-  local winid = vim.fn.win_getid()
-  windows[bufnr] = winid
-
-  vim.api.nvim_create_autocmd("WinClosed", {
-    group = augroup,
-    pattern = tostring(winid),
-    callback = function()
-      windows[bufnr] = nil
-      return true
-    end
-  })
-end
-
-local function close_window(bufnr)
-  local winid = windows[bufnr]
-  windows[bufnr] = nil
-  if not winid then
-    return false
-  end
-
-  if not vim.api.nvim_win_is_valid(winid) then
-    return false
-  end
-
-  vim.api.nvim_win_close(winid, false)
-end
+local oui = require("user.overseer_ui")
 
 return {
   desc = "Open buffer on task start",
@@ -63,7 +23,7 @@ return {
     return {
       on_start = function(_, task)
         local bufnr = task:get_bufnr()
-        create_window(bufnr, params.modifier, params.size)
+        oui.create_window(bufnr, params.modifier, params.size)
         vim.api.nvim_win_set_buf(0, bufnr)
         require("overseer.util").scroll_to_end(0)
       end,
@@ -71,7 +31,7 @@ return {
         local close = params.close_on_exit == "always"
         close = close or (params.close_on_exit == "success" and code == 0)
         if close then
-          close_window(task:get_bufnr())
+          oui.close_window(task:get_bufnr())
         end
       end,
     }
