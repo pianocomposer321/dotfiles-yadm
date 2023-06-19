@@ -2,10 +2,14 @@ local windows = {}
 
 local augroup = vim.api.nvim_create_augroup("overseer_user_open_on_start", {})
 
-local function create_window(modifier, bufnr)
+local function create_window(bufnr, modifier, size)
+  if type(size) == "function" then
+    size = size()
+  end
+
   local cmd = "split"
   if modifier ~= "" then
-    cmd = modifier .. " " .. cmd
+    cmd = modifier .. " " .. size .. cmd
   end
   vim.cmd(cmd)
 
@@ -50,12 +54,16 @@ return {
       choices = { "never", "success", "always" },
       default = "never",
     },
+    size = {
+      desc = "Size of the window to create",
+      type = "opaque",
+    },
   },
   constructor = function(params)
     return {
       on_start = function(_, task)
         local bufnr = task:get_bufnr()
-        create_window(params.modifier, bufnr)
+        create_window(bufnr, params.modifier, params.size)
         vim.api.nvim_win_set_buf(0, bufnr)
         require("overseer.util").scroll_to_end(0)
       end,

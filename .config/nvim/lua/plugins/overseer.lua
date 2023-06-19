@@ -60,11 +60,14 @@ return {
           cmd = cmd .. " " .. args
         end
 
+        -- local strategy = opts.strategy
+        -- strategy.open_on_start = not params.bang
         local task = overseer.new_task({
           cmd = cmd,
+          -- strategy = strategy,
           components = {
             { "on_output_quickfix", errorformat = vim.o.efm, open_on_exit = params.bang and "never" or "failure", open_height = 8 },
-            { "user.open_on_start", modifier = "botright vertical", close_on_exit = "always" },
+            { "user.open_on_start", modifier = "botright vertical", close_on_exit = "always", size = function() return vim.o.columns * 0.4 end },
             "default",
           },
         })
