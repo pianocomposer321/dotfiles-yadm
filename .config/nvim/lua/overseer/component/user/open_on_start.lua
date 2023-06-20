@@ -34,6 +34,9 @@ return {
           oui.close_window(task:get_bufnr())
         end
       end,
+      on_reset = function(_, task)
+        oui.close_window(task.prev_bufnr)
+      end,
     }
   end,
 }
