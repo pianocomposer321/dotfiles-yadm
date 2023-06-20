@@ -10,7 +10,7 @@ return {
         end
       end,
       shade_terminals = false,
-      open_mapping = [[<C-\>]],
+      open_mapping = [[<C-_>]],
     }
   end,
   event = "VeryLazy"
