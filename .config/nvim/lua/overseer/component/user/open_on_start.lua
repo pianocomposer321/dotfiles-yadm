@@ -21,21 +21,22 @@ return {
   },
   constructor = function(params)
     return {
-      on_start = function(_, task)
-        local bufnr = task:get_bufnr()
-        oui.create_window(bufnr, params.modifier, params.size)
-        vim.api.nvim_win_set_buf(0, bufnr)
+      bufnr = nil,
+      on_start = function(self, task)
+        self.bufnr = task:get_bufnr()
+        oui.create_window(self.bufnr, params.modifier, params.size)
+        vim.api.nvim_win_set_buf(0, self.bufnr)
         require("overseer.util").scroll_to_end(0)
       end,
-      on_exit = function(_, task, code)
+      on_exit = function(self, _, code)
         local close = params.close_on_exit == "always"
         close = close or (params.close_on_exit == "success" and code == 0)
         if close then
-          oui.close_window(task:get_bufnr())
+          oui.close_window(self.bufnr)
         end
       end,
-      on_reset = function(_, task)
-        oui.close_window(task.prev_bufnr)
+      on_reset = function(self)
+        oui.close_window(self.bufnr)
       end,
     }
   end,
