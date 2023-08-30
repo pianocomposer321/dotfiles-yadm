@@ -2,7 +2,7 @@ return {
   {
     "stevearc/overseer.nvim",
     dev = true,
-    cmd = "Make",
+    cmd = {"Make", "Run"},
     init = function()
       local overseer = require("overseer")
 
@@ -57,9 +57,22 @@ return {
         util.add_component(task_defn, { "unique" })
       end)
 
+      local function spawn_cmd(cmd, params)
+        local task = overseer.new_task({
+          cmd = cmd,
+          -- strategy = strategy,
+          components = {
+            -- { "on_output_quickfix", errorformat = vim.o.efm, open_on_exit = params.bang and "never" or "failure", open_height = 8 },
+            { "on_output_quickfix", errorformat = vim.o.efm, open_on_match = not params.bang, tail = false, open_height = 8 },
+            { "user.open_on_start", modifier = "botright vertical", close_on_exit = "always", size = function() return vim.o.columns * 0.4 end },
+            "default",
+          },
+        })
+        task:start()
+      end
+
       vim.api.nvim_create_user_command("Make", function(params)
         local args = vim.fn.expandcmd(params.args)
-        -- Insert args at the '$*' in the grepprg
         local cmd, num_subs = vim.o.makeprg:gsub("%$%*", args)
         if num_subs == 0 then
           cmd = cmd .. " " .. args
@@ -67,16 +80,16 @@ return {
 
         -- local strategy = opts.strategy
         -- strategy.open_on_start = not params.bang
-        local task = overseer.new_task({
-          cmd = cmd,
-          -- strategy = strategy,
-          components = {
-            { "on_output_quickfix", errorformat = vim.o.efm, open_on_exit = params.bang and "never" or "failure", open_height = 8 },
-            { "user.open_on_start", modifier = "botright vertical", close_on_exit = "always", size = function() return vim.o.columns * 0.4 end },
-            "default",
-          },
-        })
-        task:start()
+        spawn_cmd(cmd, params)
+      end, {
+        desc = "",
+        nargs = "*",
+        bang = true,
+      })
+
+      vim.api.nvim_create_user_command("Run", function(params)
+        local cmd = vim.fn.expandcmd(params.args)
+        spawn_cmd(cmd, params)
       end, {
         desc = "",
         nargs = "*",
