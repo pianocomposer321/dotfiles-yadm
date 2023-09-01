@@ -27,6 +27,9 @@ return {
       --- Commenting
       require("mini.comment").setup {}
 
+      --- Jump2d
+      require("mini.jump2d").setup {}
+
       --- Completion
       -- require("mini.completion").setup {
       --   mappings = {
