@@ -106,6 +106,7 @@ return {
   "williamboman/mason-lspconfig.nvim",
   {
     "j-hui/fidget.nvim",
+    tag = "legacy",
     event = "BufReadPost",
     config = function() require("fidget").setup() end
   },

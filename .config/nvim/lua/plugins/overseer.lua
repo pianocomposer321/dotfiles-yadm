@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/overseer.nvim",
-    dev = true,
+    -- dev = true,
     cmd = {"Make", "Run"},
     init = function()
       local overseer = require("overseer")
