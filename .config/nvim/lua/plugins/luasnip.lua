@@ -40,7 +40,6 @@ return {
   config = function()
     local paths = vim.api.nvim_get_runtime_file("snippets", true)
     if #local_snippets_dir > 0 then
-      print("adding snippets folder: ", local_snippets_dir)
       table.insert(paths, local_snippets_dir)
     end
     require("luasnip.loaders.from_snipmate").lazy_load({paths = paths})
