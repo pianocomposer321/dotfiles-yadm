@@ -18,19 +18,13 @@ return {
     "echasnovski/mini.nvim",
     event = "VeryLazy",
     config = function()
-      --- Surround
       require("mini.surround").setup {}
-
-      --- Auto pairs
       -- require("mini.pairs").setup {}
-
-      --- Commenting
       require("mini.comment").setup {}
-
-      --- Jump2d
       require("mini.jump2d").setup {}
+      require("mini.files").setup {}
+      vim.keymap.set("n", "-", "<CMD>e.<CR>")
 
-      --- Completion
       -- require("mini.completion").setup {
       --   mappings = {
       --     force_twostep = '',
