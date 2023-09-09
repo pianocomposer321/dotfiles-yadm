@@ -37,6 +37,10 @@ return {
 
       vim.keymap.set("n", "m<SPACE>", ":Make<SPACE>")
       vim.keymap.set("n", "m<CR>", ":Make<CR>")
+      vim.keymap.set("n", "m!", ":Make!<SPACE>")
+      vim.keymap.set("n", "M<SPACE>", ":Run<SPACE>")
+      vim.keymap.set("n", "M<CR>", ":Run<CR>")
+      vim.keymap.set("n", "M!", ":Run!<SPACE>")
     end,
     config = function()
       local overseer = require("overseer")
@@ -64,7 +68,7 @@ return {
           components = {
             -- { "on_output_quickfix", errorformat = vim.o.efm, open_on_exit = params.bang and "never" or "failure", open_height = 8 },
             { "on_output_quickfix", errorformat = vim.o.efm, open_on_match = not params.bang, tail = false, open_height = 8 },
-            { "user.open_on_start", modifier = "botright vertical", close_on_exit = stay_open and "never" or "always", size = function() return vim.o.columns * 0.4 end },
+            { "user.open_on_start", modifier = "botright vertical", close_on_exit = params.bang and "always" or "never", size = function() return vim.o.columns * 0.4 end },
             "default",
           },
         })
