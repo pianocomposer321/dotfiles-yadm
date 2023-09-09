@@ -6,7 +6,7 @@ return {
       require("neorg").setup {
         load = {
           ["core.defaults"] = {},
-          ["core.norg.dirman"] = {
+          ["core.dirman"] = {
             config = {
               workspaces = {
                 -- default = "~/Documents/neorg",
@@ -14,7 +14,7 @@ return {
               }
             }
           },
-          ["core.norg.concealer"] = {},
+          ["core.concealer"] = {},
           -- ["core.gtd.base"] = {
           --   config = {
           --     workspace = "example_gtd",
