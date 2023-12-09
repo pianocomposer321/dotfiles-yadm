@@ -7,11 +7,11 @@ vim.keymap.set("n", "[c", "<CMD>cprev<CR>")
 
 -- Mappings that I lied from helix
 --- Movement
-vim.keymap.set({"n", "v"}, "gl", "$")
-vim.keymap.set({"n", "v"}, "gh", "0")
-vim.keymap.set({"n", "v"}, "gs", "^")
-vim.keymap.set({"n", "v"}, "ge", "G")
-vim.keymap.set({"n", "v"}, "gm", "%")
+vim.keymap.set({"n", "v", "o"}, "gl", "$")
+vim.keymap.set({"n", "v", "o"}, "gh", "0")
+vim.keymap.set({"n", "v", "o"}, "gs", "^")
+vim.keymap.set({"n", "v", "o"}, "ge", "G")
+vim.keymap.set({"n", "v", "o"}, "gm", "%")
 
 --- Alternate file
 vim.keymap.set("n", "ga", "<C-6>")
