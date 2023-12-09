@@ -24,7 +24,8 @@ return {
         local task = get_last()
         if task then
           local bufnr = task:get_bufnr()
-          require("user.overseer_ui").create_window(bufnr, "botright vertical", vim.o.columns * 0.4)
+          -- require("user.overseer_ui").create_window(bufnr, "botright vertical", vim.o.columns * 0.4)
+          require("user.overseer_ui").add_window_to_stack(bufnr)
           vim.api.nvim_win_set_buf(0, bufnr)
         end
       end
@@ -61,20 +62,27 @@ return {
         util.add_component(task_defn, { "unique" })
       end)
 
-      local function spawn_cmd(cmd, params, stay_open)
+      local function spawn_cmd(cmd, params)
         local task = overseer.new_task({
           cmd = cmd,
           -- strategy = strategy,
           components = {
             -- { "on_output_quickfix", errorformat = vim.o.efm, open_on_exit = params.bang and "never" or "failure", open_height = 8 },
-            { "on_output_quickfix", errorformat = vim.o.efm, open_on_match = not params.bang, tail = false, open_height = 8 },
+            { "on_output_quickfix", errorformat = vim.o.efm, open_on_match = not params.bang, tail = false, open_height = 8, close = true },
             { "user.open_on_start", modifier = "botright vertical", close_on_exit = params.bang and "always" or "never", size = function() return vim.o.columns * 0.4 end },
-            "default",
+            "on_exit_set_status",
+            -- "default",
           },
         })
         task:start()
       end
 
+      local cmd_opts = {
+        desc = "",
+        nargs = "*",
+        bang = true,
+        complete = "file",
+      }
       vim.api.nvim_create_user_command("Make", function(params)
         local args = vim.fn.expandcmd(params.args)
         local cmd, num_subs = vim.o.makeprg:gsub("%$%*", args)
@@ -85,29 +93,17 @@ return {
         -- local strategy = opts.strategy
         -- strategy.open_on_start = not params.bang
         spawn_cmd(cmd, params)
-      end, {
-        desc = "",
-        nargs = "*",
-        bang = true,
-      })
+      end, cmd_opts)
 
       vim.api.nvim_create_user_command("Run", function(params)
         local cmd = vim.fn.expandcmd(params.args)
         spawn_cmd(cmd, params)
-      end, {
-        desc = "",
-        nargs = "*",
-        bang = true,
-      })
+      end, cmd_opts)
 
       vim.api.nvim_create_user_command("RunOpen", function(params)
         local cmd = vim.fn.expandcmd(params.args)
         spawn_cmd(cmd, params, true)
-      end, {
-        desc = "",
-        nargs = "*",
-        bang = true,
-      })
+      end, cmd_opts)
   end
   },
 }

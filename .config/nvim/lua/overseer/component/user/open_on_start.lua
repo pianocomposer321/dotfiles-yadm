@@ -24,7 +24,7 @@ return {
       bufnr = nil,
       on_start = function(self, task)
         self.bufnr = task:get_bufnr()
-        oui.create_window(self.bufnr, params.modifier, params.size)
+        oui.add_window_to_stack(self.bufnr)
         vim.api.nvim_win_set_buf(0, self.bufnr)
         require("overseer.util").scroll_to_end(0)
       end,
