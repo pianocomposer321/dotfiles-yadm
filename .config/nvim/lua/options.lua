@@ -13,6 +13,7 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.pumheight = 6
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.cursorline = true
 
 if vim.fn.executable("rg") then
   vim.opt.grepprg = "rg --vimgrep"
