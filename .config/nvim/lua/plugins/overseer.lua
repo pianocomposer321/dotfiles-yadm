@@ -102,7 +102,7 @@ return {
 
       vim.api.nvim_create_user_command("RunOpen", function(params)
         local cmd = vim.fn.expandcmd(params.args)
-        spawn_cmd(cmd, params, true)
+        spawn_cmd(cmd, params)
       end, cmd_opts)
   end
   },
