@@ -19,6 +19,21 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
+    config = function()
+      local configs = require('lspconfig.configs')
+      local lspconfig = require('lspconfig')
+      if not configs['v-analyzer'] then
+        configs['v-analyzer'] = {
+          default_config = {
+            cmd = { 'v-analyzer' },
+            root_dir = lspconfig.util.root_pattern('.git', '.v-analyzer'),
+            filetypes = { 'v', 'vlang' },
+          },
+        }
+      end
+      -- lspconfig['v-analyzer'].setup {}
+
+    end,
     lazy = false,
   },
   {
@@ -52,6 +67,7 @@ return {
       require("mason").setup()
       require("mason-lspconfig").setup()
 
+      lspconfig['v-analyzer'].setup(lsp_opts)
       require("mason-lspconfig").setup_handlers {
         function(server_name)
           lspconfig[server_name].setup(lsp_opts)
