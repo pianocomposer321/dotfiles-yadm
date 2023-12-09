@@ -23,7 +23,14 @@ return {
       require("mini.comment").setup {}
       require("mini.jump2d").setup {}
       require("mini.files").setup {}
-      vim.keymap.set("n", "-", "<CMD>e.<CR>")
+      vim.keymap.set("n", "-", function()
+        local dir = vim.fn.expand("%:h")
+        if dir == "" then
+          vim.cmd("e.")
+        else
+          vim.cmd("e " .. dir)
+        end
+      end)
 
       -- require("mini.completion").setup {
       --   mappings = {
