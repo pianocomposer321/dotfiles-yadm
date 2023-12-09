@@ -1,26 +1,25 @@
 return {
   {
     "nvim-neorg/neorg",
-    ft = "norg",
+    lazy = false,
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
+      vim.api.nvim_create_autocmd("FileType", { pattern = "norg", callback = function() vim.opt.conceallevel = 2 end })
+
       require("neorg").setup {
         load = {
-          ["core.defaults"] = {},
-          ["core.dirman"] = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
             config = {
               workspaces = {
-                -- default = "~/Documents/neorg",
-                example_gtd = "~/git/example_workspaces/gtd",
-              }
-            }
+                notes = "~/notes",
+              },
+            },
           },
-          ["core.concealer"] = {},
-          -- ["core.gtd.base"] = {
-          --   config = {
-          --     workspace = "example_gtd",
-          --   },
-          -- },
-        }
+          ["external.query-test"] = {},
+        },
       }
     end,
   },
