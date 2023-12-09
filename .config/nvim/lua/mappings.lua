@@ -5,6 +5,9 @@ vim.keymap.set("n", "<LEADER>w", "<C-W>")
 vim.keymap.set("n", "]c", "<CMD>cnext<CR>")
 vim.keymap.set("n", "[c", "<CMD>cprev<CR>")
 
+vim.keymap.set("n", "]t", "<CMD>tabnext<CR>")
+vim.keymap.set("n", "[t", "<CMD>tabprev<CR>")
+
 -- Mappings that I lied from helix
 --- Movement
 vim.keymap.set({"n", "v", "o"}, "gl", "$")
