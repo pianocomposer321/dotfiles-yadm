@@ -5,23 +5,10 @@ return {
     cmd = {"Make", "Run"},
     init = function()
       local overseer = require("overseer")
-
-      local function get_last()
-        local tasks = overseer.list_tasks {recent_first = true}
-        if vim.tbl_isempty(tasks) then
-          vim.notify("No tasks found", vim.log.levels.WARN)
-          return false
-        else
-          return tasks[1]
-        end
-      end
-
-      local function restart_last()
-        overseer.run_action(get_last(), "restart")
-      end
+      local util = require("user.overseer_util")
 
       local function open_vsplit_last()
-        local task = get_last()
+        local task = util.get_last_task()
         if task then
           local bufnr = task:get_bufnr()
           -- require("user.overseer_ui").create_window(bufnr, "botright vertical", vim.o.columns * 0.4)
@@ -32,7 +19,7 @@ return {
 
       vim.keymap.set("n", "<LEADER>ro", function() overseer.toggle() end)
       vim.keymap.set("n", "<LEADER>rr", function() overseer.run_template { prompt = "avoid" } end)
-      vim.keymap.set("n", "<LEADER><CR>", restart_last)
+      vim.keymap.set("n", "<LEADER><CR>", util.restart_last_task)
       vim.keymap.set("n", "<LEADER>ra", function() overseer.commands.task_action() end)
       vim.keymap.set("n", "<LEADER>rv", open_vsplit_last)
 
@@ -58,8 +45,8 @@ return {
       -- Add `unique` component to all vscode tasks
       overseer.add_template_hook({
         module = "vscode",
-      }, function(task_defn, util)
-        util.add_component(task_defn, { "unique" })
+      }, function(task_defn, a_util)
+        a_util.add_component(task_defn, { "unique" })
       end)
 
       local function spawn_cmd(cmd, params)
@@ -70,6 +57,7 @@ return {
             -- { "on_output_quickfix", errorformat = vim.o.efm, open_on_exit = params.bang and "never" or "failure", open_height = 8 },
             { "on_output_quickfix", errorformat = vim.o.efm, open_on_match = not params.bang, tail = false, open_height = 8, close = true },
             { "user.open_on_start", modifier = "botright vertical", close_on_exit = params.bang and "always" or "never", size = function() return vim.o.columns * 0.4 end },
+            { "user.track_history" },
             "on_exit_set_status",
             -- "default",
           },
