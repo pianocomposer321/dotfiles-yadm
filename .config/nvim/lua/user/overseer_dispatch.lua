@@ -49,7 +49,6 @@ end
 
 function M.setup_mappings()
   local overseer = require("overseer")
-
   vim.keymap.set("n", "<LEADER>ro", function() overseer.toggle() end)
   vim.keymap.set("n", "<LEADER>rr", function() overseer.run_template { prompt = "avoid" } end)
   vim.keymap.set("n", "<LEADER><CR>", util.restart_last_task)
