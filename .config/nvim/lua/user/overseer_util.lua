@@ -1,9 +1,16 @@
-local overseer = require("overseer")
-
 local M = {}
 
 local task_history = {}
 local tasks = {}
+
+function M.open_vsplit_last()
+  local task = M.get_last_task()
+  if task then
+    local bufnr = task:get_bufnr()
+    require("user.overseer_ui").add_window_to_stack(bufnr)
+    vim.api.nvim_win_set_buf(0, bufnr)
+  end
+end
 
 function M.register_task(task)
   tasks[task.id] = task
@@ -17,7 +24,7 @@ end
 function M.restart_last_task()
   local task = M.get_last_task()
   if task then
-    overseer.run_action(task, "restart")
+    require("overseer").run_action(task, "restart")
   end
 end
 
