@@ -5,6 +5,7 @@ return {
     event = "VeryLazy",
     -- lazy = false,
     config = function()
+---@diagnostic disable-next-line: missing-fields
       require'nvim-treesitter.configs'.setup {
         auto_install = true,
         ensure_installed = {

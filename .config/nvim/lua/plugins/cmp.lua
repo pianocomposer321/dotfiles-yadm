@@ -11,6 +11,7 @@ return {
     "hrsh7th/nvim-cmp",
     config = function()
       local cmp = require("cmp")
+---@diagnostic disable-next-line: missing-fields
       cmp.setup {
         sources = {
           { name = "nvim_lsp" },
@@ -30,6 +31,7 @@ return {
           end,
         },
         preselect = cmp.PreselectMode.None,
+---@diagnostic disable-next-line: missing-fields
         formatting = {
           format = function(_, vim_item)
             local shortened = string.sub(vim_item.abbr, 1, 19)
