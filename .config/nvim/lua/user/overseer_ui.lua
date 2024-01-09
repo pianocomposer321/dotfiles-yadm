@@ -1,7 +1,4 @@
-local windows = {}
-local count_windows = 0
----@type number?
-local last_window
+local stack = {}
 
 local augroup = vim.api.nvim_create_augroup("overseer_user_open_on_start", {})
 
@@ -10,20 +7,32 @@ local M = {}
 local get_size = function() return vim.o.columns * 0.4 end
 
 M.resize_windows_on_stack = function()
+  local count_windows = #stack
   local each_height = math.floor(vim.o.lines / count_windows)
-  for _, window in pairs(windows) do
-    vim.api.nvim_win_set_height(window, each_height)
+  for _, window in ipairs(stack) do
+    vim.api.nvim_win_set_height(window.winid, each_height)
   end
 end
 
 M.add_window_to_stack = function(bufnr)
-  if not last_window or not vim.api.nvim_win_is_valid(last_window) then
+  local last_window = stack[#stack]
+  if not last_window or not vim.api.nvim_win_is_valid(last_window.winid) then
     M.create_window(bufnr, "botright vertical", get_size())
     return
   end
-  vim.api.nvim_set_current_win(last_window)
+  vim.api.nvim_set_current_win(last_window.winid)
   M.create_window(bufnr, "belowright")
   M.resize_windows_on_stack()
+end
+
+local function get_position_on_stack(bufnr)
+  for ind, window in ipairs(stack) do
+    if window.bufnr == bufnr then return ind end
+  end
+end
+
+M.get_winid = function(bufnr)
+  return stack[get_position_on_stack(bufnr)].winid
 end
 
 M.create_window = function(bufnr, modifier, size)
@@ -40,9 +49,10 @@ M.create_window = function(bufnr, modifier, size)
   vim.cmd(cmd)
 
   local winid = vim.api.nvim_get_current_win()
-  windows[bufnr] = winid
-  last_window = winid
-  count_windows = count_windows + 1
+  table.insert(stack, {
+    winid = winid,
+    bufnr = bufnr,
+  })
   vim.wo[winid].winfixwidth = true
   vim.wo[winid].winfixheight = true
 
@@ -50,15 +60,15 @@ M.create_window = function(bufnr, modifier, size)
     group = augroup,
     pattern = tostring(winid),
     callback = function()
-      windows[bufnr] = nil
+      table.remove(stack, get_position_on_stack(bufnr))
+      vim.schedule(M.resize_windows_on_stack)
       return true
     end
   })
 end
 
 M.close_window = function(bufnr)
-  local winid = windows[bufnr]
-  windows[bufnr] = nil
+  local winid = M.get_winid(bufnr)
   if not winid then
     return false
   end
