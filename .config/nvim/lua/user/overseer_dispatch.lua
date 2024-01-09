@@ -1,6 +1,8 @@
 local util = require("user.overseer_util")
 
-local function spawn_cmd(cmd, params)
+local M = {}
+
+function M.spawn_cmd(cmd, params)
   local overseer = require("overseer")
 
   local task = overseer.new_task({
@@ -14,8 +16,6 @@ local function spawn_cmd(cmd, params)
   })
   task:start()
 end
-
-local M = {}
 
 function M.setup_commands()
   local cmd_opts = {
@@ -33,17 +33,17 @@ function M.setup_commands()
 
     -- local strategy = opts.strategy
     -- strategy.open_on_start = not params.bang
-    spawn_cmd(cmd, params)
+    M.spawn_cmd(cmd, params)
   end, cmd_opts)
 
   vim.api.nvim_create_user_command("Run", function(params)
     local cmd = vim.fn.expandcmd(params.args)
-    spawn_cmd(cmd, params)
+    M.spawn_cmd(cmd, params)
   end, cmd_opts)
 
   vim.api.nvim_create_user_command("RunOpen", function(params)
     local cmd = vim.fn.expandcmd(params.args)
-    spawn_cmd(cmd, params)
+    M.spawn_cmd(cmd, params)
   end, cmd_opts)
 end
 
