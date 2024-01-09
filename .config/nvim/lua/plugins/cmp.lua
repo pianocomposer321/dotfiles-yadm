@@ -1,5 +1,10 @@
 return {
-  "hrsh7th/cmp-nvim-lsp",
+  {
+    "hrsh7th/cmp-nvim-lsp",
+    init = function()
+      require("user.lsp_utils").add_capabilities(require("cmp_nvim_lsp").default_capabilities())
+    end,
+  },
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-path",
   {

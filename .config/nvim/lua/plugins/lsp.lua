@@ -1,25 +1,11 @@
 local functions_to_run = {}
 
-local function on_attach(client, bufnr)
-  local bufopts = { buffer = bufnr }
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-  vim.keymap.set("n", "<LEADER>k", vim.lsp.buf.hover, bufopts)
-  vim.keymap.set("n", "<LEADER>lr", vim.lsp.buf.rename, bufopts)
-  vim.keymap.set({ "n", "v" }, "<LEADER>a", vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set({ "o", "v" }, "gq", function() vim.lsp.buf.format({
-    async = true
-  })
-  end)
-
-  for _, f in ipairs(functions_to_run) do
-    f(client, bufnr)
-  end
-end
-
 return {
   {
     "neovim/nvim-lspconfig",
     config = function()
+      local lsp_utils = require("user.lsp_utils")
+
       local configs = require('lspconfig.configs')
       local lspconfig = require('lspconfig')
       if not configs['v-analyzer'] then
@@ -31,8 +17,18 @@ return {
           },
         }
       end
-      -- lspconfig['v-analyzer'].setup {}
+      if not configs['sourcekit-lsp'] then
+        configs['sourcekit-lsp'] = {
+          default_config = {
+            cmd = { 'sourcekit-lsp' },
+            root_dir = lspconfig.util.root_pattern('.git', 'Package.swift'),
+            filetypes = { 'swift' },
+          },
+        }
+      end
 
+      lspconfig['v-analyzer'].setup(lsp_utils.lsp_opts)
+      lspconfig['sourcekit-lsp'].setup(lsp_utils.lsp_opts)
     end,
     lazy = false,
   },
@@ -40,7 +36,7 @@ return {
     "lukas-reineke/lsp-format.nvim",
     config = function()
       require("lsp-format").setup {}
-      table.insert(functions_to_run, function(client)
+      require("user.lsp_utils").extend_on_attach(function(client)
         require("lsp-format").on_attach(client)
       end)
     end,
@@ -52,25 +48,14 @@ return {
     lazy = false,
     config = function()
       local lspconfig = require("lspconfig")
-
-      local has_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-      local capabilities = {}
-      if has_cmp_nvim_lsp then
-        capabilities = cmp_nvim_lsp.default_capabilities()
-      end
-
-      local lsp_opts = {
-        capabilities = capabilities,
-        on_attach = on_attach
-      }
+      local lsp_utils = require("user.lsp_utils")
 
       require("mason").setup()
       require("mason-lspconfig").setup()
 
-      lspconfig['v-analyzer'].setup(lsp_opts)
       require("mason-lspconfig").setup_handlers {
         function(server_name)
-          lspconfig[server_name].setup(lsp_opts)
+          lspconfig[server_name].setup(lsp_utils.lsp_opts)
         end,
 
         ["lua_ls"] = function()
@@ -80,7 +65,7 @@ return {
             before_init = neodev_lsp.before_init
           end
 
-          lspconfig.lua_ls.setup(vim.tbl_extend("force", lsp_opts, {
+          lspconfig.lua_ls.setup(vim.tbl_extend("force", lsp_utils.lsp_opts, {
             before_init = before_init,
             settings = {
               Lua = {
@@ -95,7 +80,7 @@ return {
           }))
         end,
         ["rust_analyzer"] = function()
-          lspconfig.rust_analyzer.setup(vim.tbl_extend("force", lsp_opts, {
+          lspconfig.rust_analyzer.setup(vim.tbl_extend("force", lsp_utils.lsp_opts, {
             settings = {
               ["rust-analyzer"] = {
                 diagnostics = {
