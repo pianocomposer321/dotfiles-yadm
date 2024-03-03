@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
--- vim.g.maplocalleader = "\"
+vim.g.maplocalleader = "\\"
 
 vim.keymap.set("n", "<LEADER>w", "<C-W>")
 vim.keymap.set("n", "]c", "<CMD>cnext<CR>")
