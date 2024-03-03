@@ -14,6 +14,7 @@ vim.opt.pumheight = 6
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.cursorline = true
+vim.opt.exrc = true
 
 if vim.fn.executable("rg") then
   vim.opt.grepprg = "rg --vimgrep"
