@@ -6,7 +6,7 @@ return {
   config = function()
     require("officer").setup {
       create_mappings = true,
-      additional_components = { "user.track_history" },
+      components = { "user.track_history" },
     }
   end,
 }
