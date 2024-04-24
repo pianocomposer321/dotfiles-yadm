@@ -5,8 +5,6 @@ return {
     build = ":Neorg sync-parsers",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      vim.api.nvim_create_autocmd("FileType", { pattern = "norg", callback = function() vim.opt.conceallevel = 2 end })
-
       require("neorg").setup {
         load = {
           ["core.defaults"] = {}, -- Loads default behaviour
@@ -15,9 +13,16 @@ return {
             config = {
               workspaces = {
                 notes = "~/notes",
+                morning_journal = "~/Documents/journal",
               },
             },
           },
+          ["core.journal"] = {
+            config = {
+              workspace = "morning_journal",
+            },
+          },
+          ["core.summary"] = {},
           ["external.query-test"] = {},
         },
       }

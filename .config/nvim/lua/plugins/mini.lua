@@ -22,7 +22,13 @@ return {
       -- require("mini.pairs").setup {}
       require("mini.comment").setup {}
       require("mini.jump2d").setup {}
-      require("mini.files").setup {}
+
+      require("mini.files").setup {
+        mappings = {
+          go_in = "",
+          go_out = "",
+        }
+      }
       vim.keymap.set("n", "-", function()
         local dir = vim.fn.expand("%:h")
         if dir == "" then

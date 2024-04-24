@@ -11,6 +11,9 @@ return {
       --- Shortcuts for frequently used mappings
       vim.keymap.set("n", "<LEADER>f", function() require("telescope.builtin").find_files() end)
       vim.keymap.set("n", "<LEADER>b", function() require("telescope.builtin").buffers() end)
+
+      vim.keymap.set("n", "<LEADER>ls", function() require("telescope.builtin").lsp_document_symbols() end)
+      vim.keymap.set("n", "<LEADER>lw", function() require("telescope.builtin").lsp_workspace_symbols() end)
     end,
     config = {
       defaults = {

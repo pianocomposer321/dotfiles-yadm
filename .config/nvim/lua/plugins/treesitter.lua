@@ -15,6 +15,9 @@ return {
           "rust",
           "toml",
         },
+        indent = {
+          enable = { "svelte" },
+        },
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = { "org" },
@@ -67,5 +70,15 @@ return {
   {
     "windwp/nvim-ts-autotag",
     event = "VeryLazy",
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufEnter",
+    config = function()
+      require('treesitter-context').setup {
+        max_lines = 3,
+        mode = "topline",
+      }
+    end,
   },
 }
