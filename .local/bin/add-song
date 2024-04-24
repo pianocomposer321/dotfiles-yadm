@@ -1,0 +1,4 @@
+#!/bin/sh
+
+music-dl library add-song "$1"
+sync-music

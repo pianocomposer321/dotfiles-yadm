@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for id in $(music-dl library ls --ids); do
+  echo "Exporting playlist: $id"
+  music-dl playlist "$id" export
+done
+
+rclone sync ~/Music dropbox:Music/ -P

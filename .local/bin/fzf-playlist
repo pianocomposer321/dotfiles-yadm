@@ -1,0 +1,9 @@
+#!/bin/sh
+
+playlist=$(music-dl library ls | fzf | awk -F '|' '{print $2}' | tr -d '[:space:]')
+
+if [ $# -eq 0 ]; then
+  echo "$playlist"
+else
+  music-dl playlist "$playlist" "$@"
+fi
