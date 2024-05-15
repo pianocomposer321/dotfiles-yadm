@@ -29,6 +29,7 @@ return {
 
       lspconfig['v-analyzer'].setup(lsp_utils.lsp_opts)
       lspconfig['sourcekit-lsp'].setup(lsp_utils.lsp_opts)
+      lspconfig['racket_langserver'].setup(lsp_utils.lsp_opts)
     end,
     lazy = false,
   },

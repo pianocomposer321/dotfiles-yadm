@@ -58,8 +58,15 @@ return {
   {
     "Wansmer/treesj",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    keys = { "<LEADER>j", "<LEADER>k" },
-    config = function() require("treesj").setup() end,
+    init = function()
+      vim.keymap.set("n", "<A-j>", function() require("treesj").join() end)
+      vim.keymap.set("n", "<A-k>", function() require("treesj").split() end)
+    end,
+    config = function()
+      require("treesj").setup {
+        use_default_keys = false,
+      }
+    end,
   },
   {
     "nvim-treesitter/playground",
