@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# https://github.com/pianocomposer321/MusicDL
 playlist=$(music-dl library ls | fzf | awk -F '|' '{print $2}' | tr -d '[:space:]')
 
 if [ $# -eq 0 ]; then

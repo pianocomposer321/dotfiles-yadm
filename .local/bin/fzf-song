@@ -1,3 +1,4 @@
 #!/bin/sh
 
+# https://github.com/pianocomposer321/MusicDL
 music-dl library list-songs | fzf | awk -F '|' '{print $2}' | tr -d '[:space:]'

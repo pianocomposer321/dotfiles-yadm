@@ -1,4 +1,5 @@
 #!/bin/sh
 
+# https://github.com/pianocomposer321/ytm-search
 res=$(ytm-search "$1" | jq -r '.[] | "\(.title) - \(.artist) | \(.video_id)"')
 printf "$res" | fzf --no-sort | awk -F '|' '{print $2}'
