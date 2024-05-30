@@ -1,0 +1,1 @@
+../stow/flutter/bin/flutter.bat

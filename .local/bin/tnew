@@ -1,0 +1,7 @@
+#!/bin/sh
+
+path=$(zoxide query -i)
+sessionname=$(basename $path)
+
+tmux new-session -d -c "$path" -s "$sessionname"
+tmux switch-client -t "$sessionname"

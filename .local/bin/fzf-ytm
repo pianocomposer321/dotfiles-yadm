@@ -1,0 +1,4 @@
+#!/bin/sh
+
+res=$(ytm-search "$1" | jq -r '.[] | "\(.title) - \(.artist) | \(.video_id)"')
+printf "$res" | fzf --no-sort | awk -F '|' '{print $2}'
