@@ -4,7 +4,7 @@ return {
   -- enabled = false,
   dependencies = {
     "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+    -- "rcarriga/nvim-notify",
   },
   config = {
     lsp = {
@@ -32,5 +32,9 @@ return {
         opts = { skip = true },
       },
     },
+    -- messages = {
+    --   view = "messages",
+    --   view_search = "virtualtext",
+    -- }
   }
 }

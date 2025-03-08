@@ -21,7 +21,7 @@ return {
       require("mini.surround").setup {}
       -- require("mini.pairs").setup {}
       require("mini.comment").setup {}
-      require("mini.jump2d").setup {}
+      -- require("mini.jump2d").setup {}
 
       require("mini.files").setup {
         mappings = {

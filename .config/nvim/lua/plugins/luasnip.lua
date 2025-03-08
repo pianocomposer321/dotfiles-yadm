@@ -2,7 +2,8 @@ local local_snippets_dir = vim.fn.finddir("snippets", ".;")
 
 return {
   "L3MON4D3/LuaSnip",
-  dependencies = "honza/vim-snippets",
+  -- dependencies = "honza/vim-snippets",
+  -- enabled = false,
   event = "VeryLazy",
   init = function()
     vim.keymap.set({"i", "s"}, "<C-j>", function() require("luasnip").expand_or_jump(1) end)
@@ -42,6 +43,6 @@ return {
     if #local_snippets_dir > 0 then
       table.insert(paths, local_snippets_dir)
     end
-    require("luasnip.loaders.from_snipmate").lazy_load({paths = paths})
+    require("luasnip.loaders.from_snipmate").lazy_load({paths = require("util").reverseTable(paths)})
   end
 }

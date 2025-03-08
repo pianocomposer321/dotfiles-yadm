@@ -6,6 +6,7 @@ return {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = 'make' },
     },
+    cmd = "Telescope",
     init = function()
       vim.keymap.set("n", "<LEADER>td", function() require("telescope.builtin").diagnostics() end)
       vim.keymap.set("n", "<LEADER>tf", function() require("telescope.builtin").find_files() end)

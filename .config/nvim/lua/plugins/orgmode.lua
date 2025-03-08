@@ -4,9 +4,9 @@ return {
     -- ft = "org",
     lazy = false,
     config = function()
-      require("orgmode").setup_ts_grammar()
+      -- require("orgmode").setup_ts_grammar()
       require("orgmode").setup {
-        org_agenda_files = {"~/Documents/notes-org/**/*"},
+        org_agenda_files = {"~/Documents/notes-org/**/*", "~/Documents/orgzly/**/*"},
         org_default_notes_file = "~/Documents/notes-org/refile.org",
       }
     end
