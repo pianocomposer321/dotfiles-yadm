@@ -1,5 +1,14 @@
 #!/bin/sh
 
+search() {
+  # ytm-search-py "$1" \
+  #   | jq -r '.[] | if .explicit == "IsExplicit" then "\(.title) - \(.artist) | \(.video_id) | E" else "\(.title) - \(.artist) | \(.video_id)" end'
+
+  ytm-search-py "$1" \
+    | jq -r '.[] | if .isExplicit == true then "\(.title) - \(.artist) | \(.videoId) | E" else "\(.title) - \(.artists|map(.name)|join(",")) | \(.videoId)" end'
+
+}
+
 # https://github.com/pianocomposer321/ytm-search
-res=$(ytm-search "$1" | jq -r '.[] | "\(.title) - \(.artist) | \(.video_id)"')
-printf "$res" | fzf --no-sort | awk -F '|' '{print $2}'
+res=$(search "$1")
+printf "$res" | fzf --no-sort | awk -F '|' '{print $2}' | tr -d \[:space:\]

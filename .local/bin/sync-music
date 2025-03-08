@@ -5,4 +5,6 @@ for id in $(music-dl library ls --ids); do
   music-dl playlist "$id" export
 done
 
+rsgain easy --skip-existing ~/Music
+spotify-image-search "$HOME/Music" -r
 rclone sync ~/Music dropbox:Music/ -P
