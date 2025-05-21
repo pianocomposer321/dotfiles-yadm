@@ -1,19 +1,8 @@
 return {
-  {
-    "hrsh7th/cmp-nvim-lsp",
-    init = function()
-      require("user.lsp_utils").add_capabilities(require("cmp_nvim_lsp").default_capabilities())
-    end,
-  },
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  {
-    "saadparwaiz1/cmp_luasnip",
-    dependencies = "L3MON4D3/LuaSnip"
-  },
   -- "hrsh7th/cmp-nvim-lsp-signature-help",
   {
     "hrsh7th/nvim-cmp",
+    enabled = false,
     config = function()
       local cmp = require("cmp")
 ---@diagnostic disable-next-line: missing-fields
@@ -49,9 +38,24 @@ return {
       }
     end,
     event = "InsertEnter",
+    dependencies = {
+      {
+        "hrsh7th/cmp-nvim-lsp",
+        init = function()
+          require("user.lsp_utils").add_capabilities(require("cmp_nvim_lsp").default_capabilities())
+        end,
+      },
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      {
+        "saadparwaiz1/cmp_luasnip",
+        dependencies = "L3MON4D3/LuaSnip"
+      },
+    },
   },
   {
     "folke/neodev.nvim",
+    enabled = false,
     lazy = false,
     config = function()
       require("neodev").setup {

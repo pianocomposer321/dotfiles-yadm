@@ -13,8 +13,8 @@ return {
       signs = { " ┆"," │", " ┃" },
     })
 
-    vim.keymap.set({"n", "v"}, "<C-k>", function() mc.addCursor("k") end)
-    vim.keymap.set({"n", "v"}, "<C-j>", function() mc.addCursor("j") end)
+    vim.keymap.set("n", "<C-k>", function() mc.addCursor("k") end)
+    vim.keymap.set("n", "<C-j>", function() mc.addCursor("j") end)
 
     vim.keymap.set("n", "<esc>", function()
       if not mc.cursorsEnabled() then
