@@ -2,7 +2,7 @@ return {
   {
     'fgheng/winbar.nvim',
     event = "BufReadPre",
-    config = {
+    opts = {
       enabled = true,
       show_file_path = true,
     }

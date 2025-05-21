@@ -11,7 +11,7 @@ return {
         ensure_installed = {
           "lua",
           "norg",
-          "org",
+          -- "org",
           "rust",
           "toml",
         },

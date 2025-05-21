@@ -6,7 +6,8 @@ return {
     "MunifTanjim/nui.nvim",
     -- "rcarriga/nvim-notify",
   },
-  config = {
+  -- HERE -> config to opts
+  opts = {
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

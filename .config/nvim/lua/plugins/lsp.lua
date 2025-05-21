@@ -51,54 +51,78 @@ return {
       local lspconfig = require("lspconfig")
       local lsp_utils = require("user.lsp_utils")
 
+      vim.lsp.config("*", lsp_utils.lsp_opts)
+
+      --- lua_ls
+      local has_neodev, neodev_lsp = pcall(require, "neodev.lsp")
+      local before_init
+      if has_neodev then
+        before_init = neodev_lsp.before_init
+      end
+
+      vim.lsp.config("lua_ls", {
+        before_init = before_init,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" }
+            },
+            workspace = {
+              checkThirdParty = false
+            }
+          }
+        },
+      })
+
+
+      -- require("mason-lspconfig").setup_handlers {
+      --   function(server_name)
+      --     lspconfig[server_name].setup(lsp_utils.lsp_opts)
+      --   end,
+      --
+      --   ["lua_ls"] = function()
+      --     local has_neodev, neodev_lsp = pcall(require, "neodev.lsp")
+      --     local before_init
+      --     if has_neodev then
+      --       before_init = neodev_lsp.before_init
+      --     end
+      --
+      --     lspconfig.lua_ls.setup(vim.tbl_extend("force", lsp_utils.lsp_opts, {
+      --       before_init = before_init,
+      --       settings = {
+      --         Lua = {
+      --           diagnostics = {
+      --             globals = { "vim" }
+      --           },
+      --           workspace = {
+      --             checkThirdParty = false
+      --           }
+      --         }
+      --       },
+      --     }))
+      --   end,
+      --   ["rust_analyzer"] = function()
+      --     lspconfig.rust_analyzer.setup(vim.tbl_extend("force", lsp_utils.lsp_opts, {
+      --       settings = {
+      --         ["rust-analyzer"] = {
+      --           diagnostics = {
+      --             disabled = {
+      --               "inactive-code"
+      --             }
+      --           }
+      --           -- cargo = {
+      --           --   extraEnv = {
+      --           --     RUSTFLAGS = "--cfg rust_analyzer"
+      --           --   }
+      --           -- }
+      --         }
+      --       }
+      --     }))
+      --   end
+      -- }
+
       require("mason").setup()
       require("mason-lspconfig").setup()
-
-      require("mason-lspconfig").setup_handlers {
-        function(server_name)
-          lspconfig[server_name].setup(lsp_utils.lsp_opts)
-        end,
-
-        ["lua_ls"] = function()
-          local has_neodev, neodev_lsp = pcall(require, "neodev.lsp")
-          local before_init
-          if has_neodev then
-            before_init = neodev_lsp.before_init
-          end
-
-          lspconfig.lua_ls.setup(vim.tbl_extend("force", lsp_utils.lsp_opts, {
-            before_init = before_init,
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = { "vim" }
-                },
-                workspace = {
-                  checkThirdParty = false
-                }
-              }
-            },
-          }))
-        end,
-        ["rust_analyzer"] = function()
-          lspconfig.rust_analyzer.setup(vim.tbl_extend("force", lsp_utils.lsp_opts, {
-            settings = {
-              ["rust-analyzer"] = {
-                diagnostics = {
-                  disabled = {
-                    "inactive-code"
-                  }
-                }
-                -- cargo = {
-                --   extraEnv = {
-                --     RUSTFLAGS = "--cfg rust_analyzer"
-                --   }
-                -- }
-              }
-            }
-          }))
-        end
-      }
     end,
     dependencies = {
       "neovim/nvim-lspconfig",
