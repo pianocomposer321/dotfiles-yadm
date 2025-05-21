@@ -7,8 +7,8 @@ return {
   event = "VeryLazy",
   build = "make install_jsregexp",
   init = function()
-    vim.keymap.set({"i", "s"}, "<C-j>", function() require("luasnip").expand_or_jump(1) end)
-    vim.keymap.set({"i", "s"}, "<C-k>", function() require("luasnip").jump(-1) end)
+    -- vim.keymap.set({"i", "s"}, "<C-j>", function() require("luasnip").expand_or_jump(1) end)
+    -- vim.keymap.set({"i", "s"}, "<C-k>", function() require("luasnip").jump(-1) end)
 
     vim.api.nvim_create_user_command("LuaSnipEdit", function()
       vim.cmd.edit(string.format("%s/%s.snippets", "~/.config/nvim/snippets", vim.o.ft))
