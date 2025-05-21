@@ -44,7 +44,7 @@ return {
       widgets.Align,
 
       widgets.Diagnostics, widgets.Space, widgets.Ruler,
-      -- hl = { bg = colors.bg },
+      hl = { bold = false, },
     }
 
     heirline.setup {statusline = statusline}

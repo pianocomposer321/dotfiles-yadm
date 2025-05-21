@@ -94,7 +94,8 @@ M.ViMode = {
   -- Same goes for the highlight. Now the foreground will change according to the current mode.
   hl = function(self)
     local mode = self.mode:sub(1, 1) -- get only the first mode character
-    return { fg = utils.get_highlight("Normal").bg, bg = mode_colors[mode], bold = true, }
+    -- return { fg = utils.get_highlight("Normal").bg, bg = mode_colors[mode], bold = true, }
+    return { fg = utils.get_highlight("Normal").bg, bg = mode_colors[mode], bold = false, }
   end,
   -- Re-evaluate the component only on ModeChanged event!
   -- This is not required in any way, but it's there, and it's a small
@@ -146,6 +147,7 @@ M.Ruler = {
   hl = function(self)
     local mode = self.mode:sub(1, 1)
     return { fg = utils.get_highlight("Normal").bg, bg = mode_colors[mode], bold = true, }
+    -- return { fg = utils.get_highlight("Normal").bg, bg = mode_colors[mode], }
   end
 }
 
@@ -168,6 +170,7 @@ M.LSPActive = {
   hl = { fg = "green", bold = true },
 }
 
+local diag_config = vim.diagnostic.config() or {}
 M.Diagnostics = {
 
   condition = conditions.has_diagnostics,
@@ -177,10 +180,14 @@ M.Diagnostics = {
     -- warn_icon = "W: ",
     -- info_icon = "I: ",
     -- hint_icon = "H: ",
-    error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
-    warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-    info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-    hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
+    -- error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
+    -- warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
+    -- info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
+    -- hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
+    error_icon = diag_config.signs.text[1] .. ' ',
+    warn_icon = diag_config.signs.text[2] .. ' ',
+    info_icon = diag_config.signs.text[3] .. ' ',
+    hint_icon = diag_config.signs.text[4] .. ' ',
   },
 
   init = function(self)
@@ -197,26 +204,28 @@ M.Diagnostics = {
       -- 0 is just another output, we can decide to print it or not!
       return self.errors > 0 and (self.error_icon .. self.errors .. " ")
     end,
-    hl = { fg = "diag_error" },
+    hl = { fg = "diag_error", bold = false },
   },
   {
     provider = function(self)
       return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
     end,
-    hl = { fg = "diag_warn" },
+    hl = { fg = "diag_warn", bold = false },
   },
   {
     provider = function(self)
       return self.info > 0 and (self.info_icon .. self.info .. " ")
     end,
-    hl = { fg = "diag_info" },
+    hl = { fg = "diag_info", bold = false },
   },
   {
     provider = function(self)
       return self.hints > 0 and (self.hint_icon .. self.hints)
     end,
-    hl = { fg = "diag_hint" },
+    hl = { fg = "diag_hint", bold = false },
   },
+
+  { hl = { bold = false } },
 }
 
 M.Git = {
