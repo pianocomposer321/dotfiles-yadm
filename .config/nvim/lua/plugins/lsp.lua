@@ -30,6 +30,8 @@ return {
       lspconfig['v-analyzer'].setup(lsp_utils.lsp_opts)
       lspconfig['sourcekit-lsp'].setup(lsp_utils.lsp_opts)
       lspconfig['racket_langserver'].setup(lsp_utils.lsp_opts)
+      lspconfig['pyright'].setup(lsp_utils.lsp_opts)
+      -- lspconfig['rust_analyzer'].setup(lsp_utils.lsp_opts)
     end,
     lazy = false,
   },
@@ -74,6 +76,23 @@ return {
         },
       })
 
+      --- rust_analyzer
+      vim.lsp.config("rust_analyzer", {
+        settings = {
+          ["rust-analyzer"] = {
+            diagnostics = {
+              disabled = {
+                "inactive-code"
+              }
+            }
+            -- cargo = {
+            --   extraEnv = {
+            --     RUSTFLAGS = "--cfg rust_analyzer"
+            --   }
+            -- }
+          }
+        }
+      })
 
       -- require("mason-lspconfig").setup_handlers {
       --   function(server_name)

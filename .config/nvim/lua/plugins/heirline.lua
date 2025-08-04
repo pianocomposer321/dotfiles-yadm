@@ -39,7 +39,8 @@ return {
     local statusline = {
       widgets.ViMode, widgets.Space,
       widgets.FileName, widgets.Space, widgets.FileModified, widgets.Space,
-      widgets.LSPActive, widgets.Space, widgets.Space, widgets.Git,
+      widgets.LSPActive, widgets.Space, widgets.Space, widgets.Git, -- widgets.Space,
+      widgets.RegRecording,
 
       widgets.Align,
 

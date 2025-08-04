@@ -281,4 +281,9 @@ M.Git = {
     },
 }
 
+M.RegRecording = {
+  condition = function() return #vim.fn.reg_recording() > 0 end,
+  provider = function() return "recording @" .. vim.fn.reg_recording() end,
+}
+
 return M

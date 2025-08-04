@@ -30,12 +30,16 @@ return {
         }
       }
       vim.keymap.set("n", "-", function()
-        local dir = vim.fn.expand("%:h")
-        if dir == "" then
-          vim.cmd("e.")
-        else
-          vim.cmd("e " .. dir)
-        end
+        require("mini.files").open(vim.fn.expand("%"))
+        -- local dir = vim.fn.expand("%:h")
+        -- require("mini.files").open(nil)
+        -- if dir == "" then
+        --   -- require("mini.files").open(".")
+        --   -- vim.cmd("e.")
+        -- else
+        --   require("mini.files").open(dir)
+        --   -- vim.cmd("e " .. dir)
+        -- end
       end)
 
       -- require("mini.completion").setup {
