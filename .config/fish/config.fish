@@ -20,3 +20,7 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# >>> coursier install directory >>>
+set -gx PATH "$PATH:/home/composer3/.local/share/coursier/bin"
+# <<< coursier install directory <<<

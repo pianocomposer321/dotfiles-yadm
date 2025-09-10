@@ -52,6 +52,8 @@ return {
           enable = true
         },
       }
+
+      vim.treesitter.language.register("python", "sage")
     end,
     run = ":TSUpdate",
   },

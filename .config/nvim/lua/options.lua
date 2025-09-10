@@ -15,6 +15,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.cursorline = true
 vim.opt.exrc = true
+vim.opt.undofile = true
 
 if vim.fn.executable("rg") then
   vim.opt.grepprg = "rg --vimgrep"
