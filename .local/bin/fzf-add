@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# https://github.com/pianocomposer321/MusicDL
+music-dl library add-song $(fzf-ytm "$1")

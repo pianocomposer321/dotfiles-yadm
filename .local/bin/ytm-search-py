@@ -1,0 +1,9 @@
+#!/usr/bin/python
+
+from ytmusicapi import YTMusic
+import sys
+import json
+
+ytmusic = YTMusic()
+result = ytmusic.search(sys.argv[1], "songs")
+print(json.dumps(result))
