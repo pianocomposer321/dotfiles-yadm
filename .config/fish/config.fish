@@ -24,3 +24,12 @@ end
 # >>> coursier install directory >>>
 set -gx PATH "$PATH:/home/composer3/.local/share/coursier/bin"
 # <<< coursier install directory <<<
+
+set -gx PATH "~/.local/bin:$PATH"
+
+# homebrew
+set -gx PATH "/opt/homebrew/bin:$PATH"
+
+set -gx EDITOR nvim
+
+source ~/.local/share/python/venv/bin/activate.fish

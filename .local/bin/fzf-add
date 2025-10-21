@@ -1,4 +1,9 @@
 #!/bin/sh
 
 # https://github.com/pianocomposer321/MusicDL
-music-dl library add-song $(fzf-ytm "$1")
+# music-dl library add-song $(fzf-ytm "$1")
+
+song=$(fzf-ytm "$1")
+echo $song
+add-song "$song"
+# yt-dlp "$url$song" -f bestaudio --recode m4a -o "$HOME/Music/MusicDL/$template" --add-metadata

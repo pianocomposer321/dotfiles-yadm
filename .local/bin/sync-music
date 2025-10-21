@@ -1,10 +1,10 @@
 #!/bin/sh
 
-for id in $(music-dl library ls --ids); do
-  echo "Exporting playlist: $id"
-  music-dl playlist "$id" export
-done
+# for id in $(music-dl library ls --ids); do
+#   echo "Exporting playlist: $id"
+#   music-dl playlist "$id" export
+# done
 
-rsgain easy --skip-existing ~/Music
-spotify-image-search "$HOME/Music" -r
-rclone sync ~/Music dropbox:Music/ -P
+rsgain easy --skip-existing ~/Music/MusicDL/
+spotify-image-search "$HOME/Music/MusicDL/" -r
+rclone sync ~/Music/MusicDL/ dropbox:Music/ -P

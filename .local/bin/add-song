@@ -1,5 +1,9 @@
 #!/bin/sh
 
 # https://github.com/pianocomposer321/MusicDL
-music-dl library add-song "$1"
-sync-music
+# music-dl library add-song "$1"
+# sync-music
+url="https://music.youtube.com/watch?v="
+template="%(album)s - %(artist)s/%(title)s.%(ext)s"
+
+yt-dlp "$url$1" -f bestaudio --recode m4a -o "$HOME/Music/MusicDL/$template" --add-metadata

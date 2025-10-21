@@ -29,6 +29,9 @@ return {
           go_out = "",
         }
       }
+
+      -- require("mini.pairs").setup {}
+
       vim.keymap.set("n", "-", function()
         require("mini.files").open(vim.fn.expand("%"))
         -- local dir = vim.fn.expand("%:h")

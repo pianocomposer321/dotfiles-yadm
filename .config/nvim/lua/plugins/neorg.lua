@@ -5,11 +5,11 @@ return {
     build = ":Neorg sync-parsers",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      {
-        "juniorsundar/neorg-extras",
-        dev = true,
-        -- tag = "*" -- Always a safe bet to track current latest release
-      },
+      -- {
+      --   "juniorsundar/neorg-extras",
+      --   dev = true,
+      --   -- tag = "*" -- Always a safe bet to track current latest release
+      -- },
       -- FOR Neorg-Roam Features
       --- OPTION 1: Telescope
       "nvim-telescope/telescope.nvim",
@@ -36,18 +36,18 @@ return {
           },
           ["core.summary"] = {},
           ["external.query-test"] = {},
-          ["external.many-mans"] = {
-            config = {
-              metadata_fold = true, -- If want @data property ... @end to fold
-              code_fold = true, -- If want @code ... @end to fold
-            }
-          },
+          -- ["external.many-mans"] = {
+          --   config = {
+          --     metadata_fold = true, -- If want @data property ... @end to fold
+          --     code_fold = true, -- If want @code ... @end to fold
+          --   }
+          -- },
           -- OPTIONAL
-          ["external.agenda"] = {
-            config = {
-              workspace = "todos",
-            }
-          },
+          -- ["external.agenda"] = {
+          --   config = {
+          --     workspace = "todos",
+          --   }
+          -- },
           -- ["external.roam"] = {
           --   config = {
           --     fuzzy_finder = "Telescope", -- OR "Fzf" ... Defaults to "Telescope"
