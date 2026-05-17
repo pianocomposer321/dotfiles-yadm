@@ -13,7 +13,10 @@ return {
       -- FOR Neorg-Roam Features
       --- OPTION 1: Telescope
       "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim" -- Required as part of Telescope installation
+      "nvim-lua/plenary.nvim", -- Required as part of Telescope installation
+
+      "nvim-neorg/tree-sitter-norg",
+      "nvim-neorg/tree-sitter-norg-meta",
     },
     config = function()
       require("neorg").setup {

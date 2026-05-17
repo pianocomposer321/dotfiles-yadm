@@ -8,3 +8,17 @@
 rsgain easy --skip-existing ~/Music/MusicDL/
 spotify-image-search "$HOME/Music/MusicDL/" -r
 rclone sync ~/Music/MusicDL/ dropbox:Music/ -P
+
+echo "Writing album artwork..."
+SAVEIFS=$IFS
+IFS=$'\n'
+for dir in $(fd -t d --search-path ~/Music/MusicDL); do
+  for file in $(fd --search-path "$dir" -e m4a); do
+    AtomicParsley "$file" -t | grep "artwork" >/dev/null 2>&1
+    if [ $? -ne 0 ]; then
+      echo "File $file not have artwork"
+      AtomicParsley "$file" --artwork "$dir/cover.jpg" --overWrite
+    fi
+  done
+done
+IFS=$SAVEIFS

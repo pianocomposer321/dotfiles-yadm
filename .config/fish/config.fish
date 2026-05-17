@@ -30,6 +30,12 @@ set -gx PATH "~/.local/bin:$PATH"
 # homebrew
 set -gx PATH "/opt/homebrew/bin:$PATH"
 
+# vcpkg
+# set -gx PATH "$HOME/git/vcpkg:$PATH"
+# fish_add_path ~/git/vcpkg/
+
 set -gx EDITOR nvim
 
 source ~/.local/share/python/venv/bin/activate.fish
+
+fish_add_path --path "/Users/tmarkle/git/vcpkg"

@@ -1,0 +1,4 @@
+-- ok, mp = pcall(require, "mini.pairs")
+-- if not ok then return end
+--
+-- mp.map_buf(0, 'i', '$', { action = 'closeopen', pair = '$$' })

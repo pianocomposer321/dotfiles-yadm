@@ -16,6 +16,7 @@ vim.opt.smartcase = true
 vim.opt.cursorline = true
 vim.opt.exrc = true
 vim.opt.undofile = true
+vim.opt.guifont = "JetBrainsMono Nerd Font"
 
 if vim.fn.executable("rg") then
   vim.opt.grepprg = "rg --vimgrep"
@@ -44,6 +45,9 @@ vim.diagnostic.config({
     },
   }
 })
+
+-- Experimental: UI2
+require("vim._core.ui2").enable({})
 
 -- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 -- for type, icon in pairs(signs) do

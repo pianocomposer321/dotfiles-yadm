@@ -1,4 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
 # https://github.com/pianocomposer321/MusicDL
-music-dl library list-songs | fzf | awk -F '|' '{print $2}' | tr -d '[:space:]'
+# music-dl library list-songs | fzf | awk -F '|' '{print $2}' | tr -d '[:space:]'
+# songs=( ~/Music/MusicDL/**/*.m4a )
+# echo "$songs"
+# songs=$(printf '%s\0' ~/Music/MusicDL/**/*.m4a)
+# echo "$songs" | fzf
+
+find ~/Music/MusicDL/**/*.m4a -print0 | tr '\0' '\n' | cut -f 1 -d '.' | awk -F'/' '{print $(NF-1)" - "$NF}' | fzf
+
+# for file in ~/Music/MusicDL/**/*.m4a; do
+#   songname=$(echo "$file" | awk -F'/' '{print $NF}')
+#   echo $songname
+# done | fzf

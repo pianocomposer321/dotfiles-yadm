@@ -6,4 +6,14 @@
 url="https://music.youtube.com/watch?v="
 template="%(album)s - %(artist)s/%(title)s.%(ext)s"
 
-yt-dlp "$url$1" -f bestaudio --recode m4a -o "$HOME/Music/MusicDL/$template" --add-metadata
+# yt-dlp "$url$1" -f bestaudio --recode m4a -o "$HOME/Music/MusicDL/$template" --add-metadata
+name=$(yt-dlp "$url$1" -f bestaudio --recode m4a -o "$HOME/Music/MusicDL/$template" --get-filename)
+# name=$(yt-dlp "$url$1" -f bestaudio --recode m4a -o "$HOME/Music/Music/Media.localized/Automatically Add to Music.localized/$template" --get-filename)
+name_formatted=${name%.*}.m4a
+yt-dlp "$url$1" -f bestaudio --recode m4a -o "$name_formatted" --add-metadata
+last-fm-image-search "$name_formatted"
+# get_cover_art --path "$name_formatted"
+echo "$name_formatted"
+# spotify-image-search "$name_formatted"
+# AtomicParsley "$name_formatted" --artwork "$(dirname "$name_formatted")/cover.jpg" --overWrite
+cp "$name_formatted" "$HOME/Music/Music/Media.localized/Automatically Add to Music.localized/"

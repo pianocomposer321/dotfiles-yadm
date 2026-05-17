@@ -9,7 +9,8 @@ return {
         org_agenda_files = {"~/Documents/notes-org/**/*", "~/Documents/orgzly/**/*"},
         org_default_notes_file = "~/Documents/notes-org/refile.org",
       }
-    end
+    end,
+    enabled = false,
   },
   {
       "akinsho/org-bullets.nvim",

@@ -6,6 +6,8 @@ return {
     config = function()
       -- vim.lsp.config("*", require("user.lsp_utils").lsp_opts)
       -- vim.lsp.config("rust_analyzer", require("user.lsp_utils").lsp_opts)
+      vim.lsp.config("tinymist", require("user.lsp_utils").lsp_opts)
+      vim.lsp.enable("tinymist")
     end,
     lazy = false,
   },

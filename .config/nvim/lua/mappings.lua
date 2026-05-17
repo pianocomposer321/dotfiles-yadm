@@ -17,7 +17,8 @@ vim.keymap.set({"n", "v", "o"}, "ge", "G")
 vim.keymap.set({"n", "v", "o"}, "gm", "%")
 
 --- Alternate file
-vim.keymap.set("n", "ga", "<C-6>")
+-- vim.keymap.set("n", "ga", "<C-6>")
+vim.keymap.set("n", "g'", "<C-6>")
 --- Redo
 vim.keymap.set("n", "U", "<C-R>")
 
@@ -25,3 +26,7 @@ vim.keymap.set("n", "U", "<C-R>")
 vim.keymap.set("n", "<LEADER>d", function() vim.diagnostic.open_float({scope = "cursor"}) end)
 vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
 vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)
+
+--- Clipboard
+vim.keymap.set({"n", "v"}, "gy", '"+y')
+vim.keymap.set("n", "gp", '"+p')
