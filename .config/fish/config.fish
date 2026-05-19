@@ -25,8 +25,7 @@ end
 set -gx PATH "$PATH:/home/composer3/.local/share/coursier/bin"
 # <<< coursier install directory <<<
 
-set -gx PATH "~/.local/bin:$PATH"
-
+set -gx PATH "$HOME/.local/bin:$PATH"
 # homebrew
 set -gx PATH "/opt/homebrew/bin:$PATH"
 
