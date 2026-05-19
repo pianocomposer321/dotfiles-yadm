@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# | fzf --print-query --bind='ctrl-e:print-query+abort' \
+session=$(
+  tmux ls \
+  | fzf --bind='ctrl-e:print-query+abort' \
+  | awk -F : '{if ($1 == $0) print $0; else print $1}' \
+  | tail -1
+)
+# tmux new -A -s "$session" || tmux switch -t "$session" || tmux attach -t "$session"
+# tmux new -d -s "$session"
+if [[ -z "$TMUX" ]]; then
+  tmux new -A -s "$session"
+else
+  tmux new -d -s "$session"
+  tmux switch -t "$session"
+fi

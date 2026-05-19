@@ -1,0 +1,7 @@
+#!/bin/sh
+
+system=$(uname -s)
+args="$@"
+if [ $system = "Darwin" ]; then gdate --date "$args" --iso-8601=minutes; exit 0; fi
+
+date --date "$args" --iso-8601=minutes
