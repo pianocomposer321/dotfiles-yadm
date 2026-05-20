@@ -26,7 +26,9 @@ return {
             i = {
               ["<esc>"] = "close"
             }
-          }
+          },
+          path_display = { "filename_first" },
+          layout_strategy = "vertical",
         },
         extensions = {
           fzf = {
