@@ -39,6 +39,8 @@ return {
         },
       }
       require("telescope").load_extension("fzf")
+
+      vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "Visual", bold = true })
     end
   },
   { "stevearc/dressing.nvim", enabled = false, event = "VeryLazy" },
