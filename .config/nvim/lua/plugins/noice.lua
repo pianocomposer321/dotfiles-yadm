@@ -29,7 +29,15 @@ return {
       lsp_doc_border = false, -- add a border to hover docs and signature help
     },
     notify = { enabled = false },
-    messages = { enabled = false },
+    -- messages = { enabled = false },
+    messages = {
+      enabled = true,  -- keep enabled for search_count
+      view_search = "virtualtext", -- show search count as virtual text
+      view = false,    -- disable other message views
+      view_error = false,
+      view_warn = false,
+      view_history = false,
+    },
     routes = {
       {
         filter = {

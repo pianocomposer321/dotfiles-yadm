@@ -15,6 +15,17 @@ return {
     lazy = false,
     -- event = "VeryLazy",
   },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufEnter",
+    dev = true,
+    config = function()
+      require('treesitter-context').setup {
+        -- max_lines = 3,
+        -- mode = "topline",
+      }
+    end,
+  },
 }
 
 --[[
@@ -111,6 +122,6 @@ return {
 --         mode = "topline",
 --       }
 --     end,
-  },
-}
+--   },
+-- }
 ]]

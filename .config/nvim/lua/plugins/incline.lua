@@ -1,11 +1,20 @@
 return {
   'b0o/incline.nvim',
+  init = function()
+    vim.keymap.set("n", "<leader>it", function() require("incline").toggle() end)
+  end,
   config = function()
     -- require('incline').setup()
 
     local helpers = require 'incline.helpers'
     local devicons = require 'nvim-web-devicons'
     require('incline').setup {
+      highlight = {
+        groups = {
+          InclineNormal = { guibg = "#1a1e22" },
+          InclineNormalNC = { guibg = "#1a1e22" }
+        }
+      },
       window = {
         padding = 0,
         margin = { horizontal = 0 },

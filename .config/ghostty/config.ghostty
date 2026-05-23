@@ -1,1 +1,2 @@
 config-file = ?auto/theme.ghostty
+adjust-cell-height = 5%
